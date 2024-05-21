@@ -61,7 +61,7 @@ public class SecurityConfig {
                     // API CRUD CLIENTE
                     .requestMatchers(HttpMethod.GET, "/strattonapp/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/strattonapp/cliente/**").hasAnyAuthority("MANAGER", "ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/strattonapp/cliente/**").hasAnyAuthority("MANAGER", "ROLE_ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/strattonapp/cliente/**").hasAnyAuthority("MANAGER", "ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/strattonapp/cliente/**").hasAnyAuthority("MANAGER", "ADMIN")
                     
                     .anyRequest().authenticated())
