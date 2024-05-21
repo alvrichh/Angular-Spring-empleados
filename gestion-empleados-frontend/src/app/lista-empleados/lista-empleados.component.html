@@ -7,6 +7,9 @@
             <th>Apellido</th>
             <th>Email</th>
             <th>Acciones</th>
+            <th>Usuario</th>
+            <th>Contraseña</th>
+            <th>Rol</th>
           </tr>
         </thead>
         <tbody>
@@ -14,6 +17,9 @@
             <td>{{empleado.nombre}}</td>
             <td>{{empleado.apellido}}</td>
             <td>{{empleado.email}}</td>
+            <td>{{empleado.username}}</td>
+            <td>{{empleado.password}}</td>
+
             <td class="d-flex">
               <button (click)="verEmpleado(empleado.id)" class="btn btn-warning mr-2">Ver</button>
               <button (click)="actualizarEmpleado(empleado.id)" class="btn btn-info mr-2">Editar</button>

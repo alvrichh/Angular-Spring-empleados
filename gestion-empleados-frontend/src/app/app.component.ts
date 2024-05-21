@@ -4,10 +4,11 @@ import { ListaEmpleadosComponent } from './lista-empleados/lista-empleados.compo
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ListaEmpleadosComponent, CommonModule, RouterOutlet, RouterLink, FormsModule],
+  imports: [ListaEmpleadosComponent, CommonModule, RouterOutlet, RouterLink, FormsModule,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

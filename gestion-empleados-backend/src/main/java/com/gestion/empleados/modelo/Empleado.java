@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "empleados")
@@ -34,26 +33,36 @@ public class Empleado implements UserDetails {
     @Column(name= "Usuario", unique = true)
     private String username;
     
-    @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
-    private String password;
+    public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	private String password;
 
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "usuario_rol")
     @Column(name = "RolesUsuario")
     private Set<Role> roles = new HashSet<>();
-
 	
 	public Empleado() {
 
 	}
 
-	public Empleado(Long id, String nombre, String apellido, String email) {
+	public Empleado(Long id, String nombre, String apellido, String email, String username, String password, Set<Role> roles) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
+		this.username= username;
+		this.password= password;
+		this.roles = roles;
+
 	}
 
 	public Long getId() {
@@ -166,5 +175,14 @@ public class Empleado implements UserDetails {
     public String getPassword() {
         return password;
     }
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 
 }
