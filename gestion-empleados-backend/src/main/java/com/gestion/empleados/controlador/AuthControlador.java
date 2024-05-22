@@ -43,20 +43,8 @@ public class AuthControlador {
      * @return ResponseEntity con la respuesta de autenticación JWT.
      */
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody SigninRequest loginRequest) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequest.getUsername(),
-                            loginRequest.getPassword()
-                    )
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            String jwt = tokenProvider.generateToken(authentication);
-            return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado o credenciales incorrectas");
-        }
+    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
+        return ResponseEntity.ok(authenticationService.signin(request));
+    
     }
 }
