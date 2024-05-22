@@ -1,26 +1,30 @@
-    <h2 class="mt-4 mb-3">Lista empleados</h2>
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead class="table-dark">
-          <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let empleado of empleados">
-            <td>{{empleado.nombre}}</td>
-            <td>{{empleado.apellido}}</td>
-            <td>{{empleado.email}}</td>
-            <td class="d-flex">
-              <button (click)="verEmpleado(empleado.id)" class="btn btn-warning mr-2">Ver</button>
-              <button (click)="actualizarEmpleado(empleado.id)" class="btn btn-info mr-2">Editar</button>
-              <button (click)="eliminarEmpleado(empleado.id)" class="btn btn-danger">Borrar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
+<h2 class="mt-4 mb-3">Lista empleados</h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Usuario</th>
+        <th>Contraseña</th>
+        <th>Acciones</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let empleado of empleados">
+        <td>{{empleado.nombre}}</td>
+        <td>{{empleado.apellido}}</td>
+        <td>{{empleado.email}}</td>
+        <td>{{empleado.usuario}}</td>
+        <td>{{empleado.password}}</td>
+        <td class="d-flex">
+          <button (click)="verEmpleado(empleado.id)" class="btn btn-warning mr-2">Ver</button>
+          <button (click)="actualizarEmpleado(empleado.id)" class="btn btn-info mr-2">Editar</button>
+          <button (click)="eliminarEmpleado(empleado.id)" class="btn btn-danger">Borrar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -3,4 +3,6 @@ export class Empleado {
     nombre:string;
     apellido:string;
     email:string;
+    usuario:string;
+    password:string;
 }

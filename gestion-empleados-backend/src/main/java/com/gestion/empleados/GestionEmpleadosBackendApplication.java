@@ -3,7 +3,7 @@ package com.gestion.empleados;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.gestion.empleados")
 public class GestionEmpleadosBackendApplication {
 
 	public static void main(String[] args) {

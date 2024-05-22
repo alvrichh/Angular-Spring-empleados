@@ -16,6 +16,7 @@ export class RegistrarEmpleadoComponent implements OnInit{
 
 
   empleado: Empleado = new Empleado();
+usuario: any;
   constructor(private empleadoServicio:EmpleadoService, private router:Router){}
 
   ngOnInit(): void {
