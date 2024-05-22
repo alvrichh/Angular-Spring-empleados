@@ -1,8 +1,11 @@
 package com.StrattonApp.Backend.DTO.resquest;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 /**
  * Clase que representa la solicitud de registro de un nuevo usuario.
  */
+@CrossOrigin(origins = "http://localhost:4200")
 public class SignUpRequest {
 
     /**

@@ -1,4 +1,4 @@
-package com.StrattonApp.Backend.service;
+package com.gestion.empleados.servicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,7 @@
-package com.StrattonApp.Backend.service;
+package com.gestion.empleados.servicio;
+
+
+import org.springframework.stereotype.Service;
 
 import com.StrattonApp.Backend.DTO.response.JwtAuthenticationResponse;
 import com.StrattonApp.Backend.DTO.resquest.SignUpRequest;
@@ -7,6 +10,7 @@ import com.StrattonApp.Backend.DTO.resquest.SigninRequest;
 /**
  * Interfaz que define los métodos para el servicio de autenticación y autorización.
  */
+@Service
 public interface AuthenticationService {
 
     /**

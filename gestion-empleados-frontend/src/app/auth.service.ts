@@ -11,6 +11,6 @@ export class AuthService {
 
   login(username: string, password: string) {
     const body = { username, password }; // Datos del formulario
-    return this.http.post(`${this.apiUrl}/login`, body);
+    return this.http.post(`${this.apiUrl}/signin`, body);
   }
 }

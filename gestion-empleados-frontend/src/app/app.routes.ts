@@ -10,9 +10,10 @@ export const routes: Routes = [
     //redirecciona al componente
     {path : 'empleados', component: ListaEmpleadosComponent},
     {path: '', redirectTo:'index', pathMatch: 'full'},
-    {path : 'login', component: LoginComponent},
     {path : 'registrar-empleado', component: RegistrarEmpleadoComponent},
     {path : 'actualizar-empleado/:id', component: ActualizarEmpleadoComponent},
-    {path : 'detalles-empleado/:id', component: DetallesEmpleadoComponent}
+    {path : 'detalles-empleado/:id', component: DetallesEmpleadoComponent},
+    {path : 'signin', component: LoginComponent},
+
 
 ];

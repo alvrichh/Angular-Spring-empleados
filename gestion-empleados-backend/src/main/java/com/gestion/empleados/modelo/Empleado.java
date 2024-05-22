@@ -14,8 +14,9 @@ import jakarta.transaction.Transactional;
 
 @Entity
 @Table(name = "empleados")
-public class Empleado implements UserDetails {
-    private static final long serialVersionUID = 1L;
+public class Empleado implements UserDetails  {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,30 +31,23 @@ public class Empleado implements UserDetails {
 	@Column(name = "email", length = 60, nullable = false, unique = true)
 	private String email;
 	
-    @Column(name= "Usuario", unique = true)
+    @Column(name= "usuario", unique = true)
     private String username;
-    
-    public void setUsername(String username) {
-		this.username = username;
-	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+    @Column(name= "password")
 	private String password;
-
+/*
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "usuario_rol")
     @Column(name = "RolesUsuario")
     private Set<Role> roles = new HashSet<>();
-	
+	*/
 	public Empleado() {
 
 	}
 
-	public Empleado(Long id, String nombre, String apellido, String email, String username, String password, Set<Role> roles) {
+	public Empleado(Long id, String nombre, String apellido, String email, String username, String password) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -61,8 +55,10 @@ public class Empleado implements UserDetails {
 		this.email = email;
 		this.username= username;
 		this.password= password;
-		this.roles = roles;
-
+	}
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
 	}
 
 	public Long getId() {
@@ -97,12 +93,24 @@ public class Empleado implements UserDetails {
 		this.email = email;
 	}
 	
-	
-	/**
-     * Devuelve una colección de roles asignados al usuario.
-     *
-     * @return Colección de roles.
-     */
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+		this.username = username;
+	}
+    
+    @Override
+    public String getPassword() {
+        return password;
+    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
+    
+    	/**
     @Transactional
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -114,75 +122,49 @@ public class Empleado implements UserDetails {
                 .collect(Collectors.toList());
     }
     
-	
-
-	/**
-     * Obtiene el nombre de usuario del usuario.
-     *
-     * @return Nombre de usuario.
-     */
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * Indica si la cuenta del usuario no ha expirado.
-     *
-     * @return Si la cuenta no ha expirado.
-     */
+    
+	**/
+    
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    /**
-     * Indica si la cuenta del usuario no está bloqueada.
-     *
-     * @return Si la cuenta no está bloqueada.
-     */
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    /**
-     * Indica si las credenciales del usuario no han expirado.
-     *
-     * @return Si las credenciales no han expirado.
-     */
+  
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    /**
-     * Indica si el usuario está habilitado.
-     *
-     * @return Si el usuario está habilitado.
-     */
+
     @Override
     public boolean isEnabled() {
         return true;
     }
 
-    /**
-     * Obtiene la contraseña del usuario.
-     *
-     * @return Contraseña del usuario.
-     */
-    @Override
-    public String getPassword() {
-        return password;
-    }
 
-	public Set<Role> getRoles() {
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
+	/**
+    public Set<Role> getRoles() {
 		return roles;
 	}
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
+**/
 
 }
