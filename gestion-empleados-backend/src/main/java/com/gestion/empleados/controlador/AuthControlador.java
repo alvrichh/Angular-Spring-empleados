@@ -41,7 +41,7 @@ public class AuthControlador {
      * @param request Datos de inicio de sesión.
      * @return ResponseEntity con la respuesta de autenticación JWT.
      */
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
         return ResponseEntity.ok(authenticationService.signin(request));
     }
