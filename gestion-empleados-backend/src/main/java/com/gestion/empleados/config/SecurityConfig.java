@@ -50,14 +50,8 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(request ->
                 request
-                    .mvcMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
-                    // API CRUD USERS
-                    .mvcMatchers(HttpMethod.GET, "/api/v1/users/**").permitAll()
-                    .mvcMatchers(HttpMethod.POST, "/api/v1/users/**").hasAuthority("ROLE_ADMIN")
-                    .mvcMatchers(HttpMethod.PUT, "/api/v1/users/**").hasAuthority("ROLE_ADMIN")
-                    .mvcMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasAuthority("ROLE_ADMIN")
-      
-                    .anyRequest().authenticated())
+                    .mvcMatchers("/**").permitAll() // Permitir todas las solicitudes
+                    .anyRequest().permitAll())
             .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
             .cors(Customizer.withDefaults())
             .authenticationProvider(authenticationProvider())
