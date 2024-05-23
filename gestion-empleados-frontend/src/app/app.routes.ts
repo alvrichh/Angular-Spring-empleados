@@ -14,5 +14,4 @@ export const routes: Routes = [
     {path : 'registrar-empleado', component: RegistrarEmpleadoComponent},
     {path : 'actualizar-empleado/:id', component: ActualizarEmpleadoComponent},
     {path : 'detalles-empleado/:id', component: DetallesEmpleadoComponent}
-
 ];

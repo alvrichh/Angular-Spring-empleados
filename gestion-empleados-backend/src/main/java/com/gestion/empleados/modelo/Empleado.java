@@ -1,6 +1,7 @@
 package com.gestion.empleados.modelo;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,14 +32,15 @@ public class Empleado implements UserDetails{
 	@Column(name = "email", length = 60, nullable = false, unique = true)
 	private String email;
 
-
 	@Column(name = "usuario", length = 60, nullable = false, unique = true)
 	private String usuario;
 
-
 	@Column(name = "password", length = 60, nullable = false, unique = true)
 	private String password;
-
+	/**
+	@Column(name = "roles")
+	private Set<Rol> roles = new HashSet<>();
+		*/
 	public String getUsuario() {
 		return usuario;
 	}
