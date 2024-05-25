@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.gestion.empleados.modelo.Empleado;
+import com.gestion.empleados.modelo.Rol;
 import com.gestion.empleados.repositorio.EmpleadoRepositorio;
 import com.github.javafaker.Faker;
 
@@ -37,12 +38,14 @@ public class InitializationData implements CommandLineRunner {
 
         try {
             // Usuario 1 - Rol USER
+        	empleadoRepositorio.deleteAll();
             Empleado usuario1 = new Empleado();
             usuario1.setNombre("usuario");
             usuario1.setApellido("anonimo");
             usuario1.setUsuario("usuario");
             usuario1.setEmail("usuario@example.com");
             usuario1.setPassword(passwordEncoder.encode("password123"));
+            usuario1.getRoles().add(Rol.USER);
             empleadoRepositorio.save(usuario1);
             System.out.println("Usuario1 (user) creado");
         } catch (Exception e) {

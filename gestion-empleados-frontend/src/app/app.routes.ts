@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     //redirecciona al componente
-    {path : 'empleados', component: ListaEmpleadosComponent},
+    {path : 'empleados', component: ListaEmpleadosComponent, data: { role: 'ADMIN' } },
     {path: '', redirectTo:'index', pathMatch: 'full'},
     {path : 'login', component: LoginComponent},
     {path : 'registrar-empleado', component: RegistrarEmpleadoComponent},

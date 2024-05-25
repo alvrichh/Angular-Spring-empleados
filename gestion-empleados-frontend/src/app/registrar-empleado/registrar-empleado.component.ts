@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-registrar-empleado',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, NgIf, CommonModule],
   templateUrl: './registrar-empleado.component.html',
   styleUrl: './registrar-empleado.component.css'
 })
@@ -17,7 +17,8 @@ export class RegistrarEmpleadoComponent implements OnInit{
 
   empleado: Empleado = new Empleado();
 usuario: any;
-  constructor(private empleadoServicio:EmpleadoService, private router:Router){}
+rolesDisponibles: string[] = ["ADMIN", "USER"];  // Correcta definición del array de roles
+constructor(private empleadoServicio:EmpleadoService, private router:Router){}
 
   ngOnInit(): void {
     console.log(this.empleado)

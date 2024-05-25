@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 4
 @Component({
   selector: 'app-signin',
@@ -13,11 +14,11 @@ import swal from 'sweetalert2';
 })
 export class LoginComponent {
 
-  constructor(private authService: AuthService) {} // Inyecta el servicio AuthService
-  username: string = '';
-  password: string = '';
-  token: string = '';
-
+  constructor(private authService: AuthService,  private router: Router) {} // Inyecta el servicio AuthService
+  username: string;
+  password: string;
+  token: string;
+  role: string;
 
   login() {
     console.log("Intentando iniciar sesión con:", this.username, this.password);
@@ -26,11 +27,27 @@ export class LoginComponent {
         this.token = response.token; // Almacena el token en la propiedad token
         localStorage.setItem('token', this.token); // También puedes seguir almacenándolo en el localStorage
         swal('Inicio de sesión exitoso', 'Has iniciado sesión correctamente', 'success');
+
+        this.verDashboard();
+        
       },
       error: (error: any) => {
         console.error('Error al iniciar sesión:', error);
         swal('Error al iniciar sesión', 'Usuario no encontrado o credenciales incorrectas', 'error');
       }
     });
+
+  }
+  verDashboard(){
+    // Redirige según el rol del usuario
+    this.router.navigate(['/empleados']);
+
+    if (this.role === 'ADMIN') {
+      this.router.navigate(['/empleados']);
+    } else if (this.role === 'USER') {
+      this.router.navigate(['/dashboard-empleado']);
+    }
+            
+
   }
 }

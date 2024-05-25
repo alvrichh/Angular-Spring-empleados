@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import com.gestion.empleados.dto.EmpleadoDTO;
 import com.gestion.empleados.modelo.Empleado;
 
 public interface EmpleadoServicio {
@@ -21,7 +22,7 @@ public interface EmpleadoServicio {
      *
      * @return Lista de objetos UsuarioDTO que representan a todos los usuarios.
      */
-    List<Empleado> getAllUsers();
+    List<EmpleadoDTO> getAllUsers();
     
     /**
      * Obtiene un usuario por su ID.

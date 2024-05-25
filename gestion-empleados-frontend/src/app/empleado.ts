@@ -5,4 +5,5 @@ export class Empleado {
     email:string;
     usuario:string;
     password:string;
+    roles: string[]; // Asumiendo que los roles se manejarán como una lista de strings
 }

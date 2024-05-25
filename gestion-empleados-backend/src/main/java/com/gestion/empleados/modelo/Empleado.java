@@ -2,12 +2,19 @@ package com.gestion.empleados.modelo;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
 
@@ -37,10 +44,13 @@ public class Empleado implements UserDetails{
 
 	@Column(name = "password", length = 60, nullable = false, unique = true)
 	private String password;
-	/**
-	@Column(name = "roles")
-	private Set<Rol> roles = new HashSet<>();
-		*/
+	
+    @ElementCollection(targetClass = Rol.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "empleado_rol", joinColumns = @JoinColumn(name = "empleado_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "roles")
+    private Set<Rol> roles = new HashSet<>();
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -61,7 +71,8 @@ public class Empleado implements UserDetails{
 
 	}
 
-	public Empleado(Long id, String nombre, String apellido, String email, String usuario, String password) {
+	public Empleado(Long id, String nombre, String apellido, String email, String usuario, String password,
+			Set<Rol> roles) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -69,6 +80,7 @@ public class Empleado implements UserDetails{
 		this.email = email;
 		this.usuario = usuario;
 		this.password = password;
+		this.roles = roles;
 	}
 
 	public Long getId() {
@@ -101,6 +113,18 @@ public class Empleado implements UserDetails{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Rol> roles) {
+		this.roles = roles;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
