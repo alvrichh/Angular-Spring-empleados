@@ -10,12 +10,11 @@ import { ListaClientesComponent } from './lista-clientes/lista-clientes.componen
 export const routes: Routes = [
     // Redirecciona al componente
     { path: 'empleados', component: ListaEmpleadosComponent, data: { role: 'ADMIN' } },
-    { path: '', redirectTo: 'index', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'registrar-empleado', component: RegistrarEmpleadoComponent },
     { path: 'actualizar-empleado/:id', component: ActualizarEmpleadoComponent },
     { path: 'detalles-empleado/:id', component: DetallesEmpleadoComponent },
     { path: 'registrar-cliente', component: RegistrarClienteComponent },
     { path: 'lista-clientes', component: ListaClientesComponent }, // Agrega la ruta para ListaClientesComponent
-    { path: '', redirectTo: '/clientes', pathMatch: 'full' }
 ];

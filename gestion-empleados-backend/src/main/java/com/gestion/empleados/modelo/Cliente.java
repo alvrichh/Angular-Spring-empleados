@@ -2,9 +2,9 @@ package com.gestion.empleados.modelo;
 
 import javax.persistence.*;
 
-import java.util.HashSet;
+import ch.qos.logback.core.net.server.Client;
+
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "clientes")
@@ -27,12 +27,25 @@ public class Cliente {
     private Empleado empleado;
 
     
-    @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Cliente> clientes = new HashSet<>();
 
-    // Getters y Setters
+    // Getters y setters
 
-    public Long getId() {
+    public Cliente(Long id, String nombre, String apellidos, String dni, String email, String comercializadora,
+			String numeroCUPS, String telefono, Empleado empleado) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.dni = dni;
+		this.email = email;
+		this.comercializadora = comercializadora;
+		this.numeroCUPS = numeroCUPS;
+		this.telefono = telefono;
+		this.empleado = empleado;
+	}
+    public Cliente() {}
+
+	public Long getId() {
         return id;
     }
 
@@ -116,12 +129,4 @@ public class Cliente {
     public int hashCode() {
         return Objects.hash(id);
     }
-    public Set<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public void setClientes(Set<Cliente> clientes) {
-        this.clientes = clientes;
-    
-}
 }

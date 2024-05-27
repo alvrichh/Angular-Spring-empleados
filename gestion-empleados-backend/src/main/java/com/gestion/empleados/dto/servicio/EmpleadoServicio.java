@@ -31,4 +31,5 @@ public interface EmpleadoServicio {
      * @return Lista de usuarios encontrados (puede contener uno o ningún usuario).
      */
     List<Empleado> getUserById(Long userId);
+
 }

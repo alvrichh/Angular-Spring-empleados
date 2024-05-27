@@ -66,4 +66,6 @@ public class EmpleadoServicioImpl implements EmpleadoServicio {
 				.map(empleado -> new EmpleadoDTO(empleado.getUsuario(), empleado.getRoles()))
 				.collect(Collectors.toList());
 	}
+
+	
 }
