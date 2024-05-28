@@ -18,7 +18,7 @@ import com.gestion.empleados.modelo.Cliente;
 import com.gestion.empleados.modelo.Empleado;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/empleados")
 @CrossOrigin(origins = "http://localhost:4200")
 public class EmpleadoControlador {
 
@@ -29,21 +29,21 @@ public class EmpleadoControlador {
     private ClienteServicio clienteService;
 
     // Listar todos los empleados
-    @GetMapping("/empleados")
+    @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public List<Empleado> listarTodosLosEmpleados() {
         return empleadoService.listarTodosLosEmpleados();
     }
 
     // Guardar un empleado
-    @PostMapping("/empleados")
+    @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public Empleado guardarEmpleado(@RequestBody Empleado empleado) {
         return empleadoService.guardarEmpleado(empleado);
     }
 
     // Obtener un empleado por usuario
-    @GetMapping("/empleados/{usuario}")
+    @GetMapping("/{usuario}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Empleado> obtenerEmpleadoPorUsuario(@PathVariable String usuario) {
         Empleado empleado = empleadoService.obtenerEmpleadoPorUsuario(usuario)
@@ -52,7 +52,7 @@ public class EmpleadoControlador {
     }
 
     // Actualizar empleado
-    @PutMapping("/empleados/{usuario}")
+    @PutMapping("/{usuario}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Empleado> actualizarEmpleado(@PathVariable String usuario, @RequestBody Empleado detallesEmpleado) {
         Empleado empleadoActualizado = empleadoService.actualizarEmpleado(usuario, detallesEmpleado);
@@ -60,7 +60,7 @@ public class EmpleadoControlador {
     }
 
     // Eliminar empleado
-    @DeleteMapping("/empleados/{usuario}")
+    @DeleteMapping("/{usuario}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> eliminarEmpleado(@PathVariable String usuario) {
         empleadoService.eliminarEmpleado(usuario);
@@ -70,7 +70,7 @@ public class EmpleadoControlador {
     }
 
     // Agregar cliente a un empleado
-    @PostMapping("/empleados/{usuario}/clientes")
+    @PostMapping("/{usuario}/clientes")
     @PreAuthorize("hasRole('ADMIN')")
     public Cliente agregarClienteAEmpleado(@PathVariable String usuario, @RequestBody Cliente cliente) {
         Empleado empleado = empleadoService.obtenerEmpleadoPorUsuario(usuario)
@@ -81,7 +81,7 @@ public class EmpleadoControlador {
     }
 
     // Listar clientes de un empleado
-    @GetMapping("/empleados/{usuario}/clientes")
+    @GetMapping("/{usuario}/clientes")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Cliente> listarClientesDeEmpleado(@PathVariable String usuario) {
         Empleado empleado = empleadoService.obtenerEmpleadoPorUsuario(usuario)

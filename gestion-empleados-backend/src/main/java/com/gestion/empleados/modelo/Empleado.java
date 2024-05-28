@@ -3,14 +3,16 @@ package com.gestion.empleados.modelo;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 
 @Entity
 @Table(name = "empleados")
@@ -75,6 +77,16 @@ public class Empleado implements UserDetails {
     public Empleado() {
     	
     }
+    @Transactional
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Cargar la colección de roles de manera temprana
+        roles.size(); // Esto carga la colección de roles
+
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .collect(Collectors.toList());
+    }
 	public Long getId() {
         return id;
     }
@@ -137,11 +149,6 @@ public class Empleado implements UserDetails {
 
     public void setClientes(Set<Cliente> clientes) {
         this.clientes = clientes;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
     }
 
     @Override

@@ -55,9 +55,9 @@ public class SecurityConfig {
                 request
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 //GESTION EMPLEADOS
-                .requestMatchers(HttpMethod.GET, "/api/v1/empleados/**").hasAnyAuthority(Rol.ADMIN.toString())
-                .requestMatchers(HttpMethod.POST, "/api/v1/empleados/**").hasAnyAuthority(Rol.ADMIN.toString())
-                .requestMatchers(HttpMethod.DELETE, "/api/v1/empleados/**").hasAnyAuthority(Rol.ADMIN.toString())
+                .requestMatchers(HttpMethod.GET, "/api/v1/empleados/**").hasAuthority(Rol.ADMIN.toString())
+                .requestMatchers(HttpMethod.POST, "/api/v1/empleados/**").hasAuthority(Rol.ADMIN.toString())
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/empleados/**").hasAuthority(Rol.ADMIN.toString())
                 
                 //GESTION CLIENTES
                 .requestMatchers(HttpMethod.GET, "/api/v1/clientes/**").hasAnyAuthority(Rol.USER.toString(), Rol.ADMIN.toString())
