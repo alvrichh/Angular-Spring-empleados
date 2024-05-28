@@ -8,64 +8,68 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gestion.empleados.dto.EmpleadoDTO;
+import com.gestion.empleados.excepciones.ResourceNotFoundException;
 import com.gestion.empleados.modelo.Empleado;
 import com.gestion.empleados.repositorio.EmpleadoRepositorio;
 
 @Service
 public class EmpleadoServicioImpl implements EmpleadoServicio {
 
-	@Autowired
-	private EmpleadoRepositorio empleadorepositorio;
+    @Autowired
+    private EmpleadoRepositorio empleadoRepositorio;
 
-	/**
-	 * Implementación del servicio UserDetailsService que carga un usuario por su
-	 * nombre de usuario.
-	 *
-	 * @return Detalles del usuario.
-	 * @throws UsernameNotFoundException Si el usuario no es encontrado.
-	 */
-	@Override
-	public UserDetailsService userDetailsService() {
-		return new UserDetailsService() {
-			@Override
-			public UserDetails loadUserByUsername(String username) {
-				return (UserDetails) empleadorepositorio.findByUsuario(username)
-						.orElseThrow(() -> new UsernameNotFoundException("User not found"));
-			}
-		};
-	}
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	/**
-	 * Obtiene todos los usuarios y los convierte en una lista de UsuarioDTO.
-	 *
-	 * @return Lista de UsuarioDTO.
-	 */
+    @Override
+    public List<Empleado> listarTodosLosEmpleados() {
+        return empleadoRepositorio.findAll();
+    }
 
-	/**
-	 * Obtiene un usuario por su ID.
-	 *
-	 * @param userId ID del usuario a obtener.
-	 * @return Lista que contiene el usuario si se encuentra, o una lista vacía si
-	 *         no.
-	 */
-	@Override
-	public List<Empleado> getUserById(Long userId) {
-		// Se asume que hay un método en el repositorio que retorna un Optional<Usuario>
-		Optional<Empleado> optionalUser = empleadorepositorio.findById(userId);
+    @Override
+    public Empleado guardarEmpleado(Empleado empleado) {
+        empleado.setPassword(passwordEncoder.encode(empleado.getPassword()));
+        return empleadoRepositorio.save(empleado);
+    }
 
-		// Verifica si el usuario existe y retorna una lista con ese usuario o una lista
-		// vacía si no se encuentra
-		return optionalUser.map(List::of).orElse(List.of());
-	}
+    @Override
+    public Optional<Empleado> obtenerEmpleadoPorUsuario(String usuario) {
+        return empleadoRepositorio.findByUsuario(usuario);
+    }
 
-	public List<EmpleadoDTO> getAllUsers() {
-		return empleadorepositorio.findAll().stream()
-				.map(empleado -> new EmpleadoDTO(empleado.getUsuario(), empleado.getRoles()))
-				.collect(Collectors.toList());
-	}
+    @Override
+    public Empleado actualizarEmpleado(String usuario, Empleado empleadoDetalles) {
+        Empleado empleado = empleadoRepositorio.findByUsuario(usuario)
+                .orElseThrow(() -> new ResourceNotFoundException("No existe el empleado con el usuario: " + usuario));
 
-	
+        empleado.setNombre(empleadoDetalles.getNombre());
+        empleado.setApellido(empleadoDetalles.getApellido());
+        empleado.setEmail(empleadoDetalles.getEmail());
+        empleado.setRoles(empleadoDetalles.getRoles());
+        empleado.setPassword(passwordEncoder.encode(empleadoDetalles.getPassword()));
+
+        return empleadoRepositorio.save(empleado);
+    }
+
+    @Override
+    public void eliminarEmpleado(String usuario) {
+        Empleado empleado = empleadoRepositorio.findByUsuario(usuario)
+                .orElseThrow(() -> new ResourceNotFoundException("No existe el empleado con el usuario: " + usuario));
+        empleadoRepositorio.delete(empleado);
+    }
+
+    @Override
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) {
+                return empleadoRepositorio.findByUsuario(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            }
+        };
+    }
 }

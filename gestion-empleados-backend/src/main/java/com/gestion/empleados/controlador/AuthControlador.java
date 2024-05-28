@@ -24,27 +24,20 @@ public class AuthControlador {
 
     @Autowired
     private  AuthenticationService authenticationService;
-
-    /**
-     * Registra un nuevo usuario.
-     *
-     * @param request Datos de registro del usuario.
-     * @return ResponseEntity con la respuesta de autenticación JWT.
-     */
-    @PostMapping("/signup")
-    public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody SignUpRequest request) {
-        return ResponseEntity.ok(authenticationService.signup(request));
-    }
-
-    /**
-     * Inicia sesión con credenciales de usuario.
-     *
-     * @param request Datos de inicio de sesión.
-     * @return ResponseEntity con la respuesta de autenticación JWT.
-     */
+    
     @PostMapping("/login")
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
         return ResponseEntity.ok(authenticationService.signin(request));
     
     }
+    /*
+    @GetMapping("/perfil")
+    public ResponseEntity<UsuarioResponse> miPerfil(@AuthenticationPrincipal Usuario usuario) {
+    	logger.info("## AuthorizationController :: miPerfil" );
+    	
+    	UsuarioResponse userResponse = new UsuarioResponse(usuario.getFirstName(), usuario.getLastName(), usuario.getEmail(), usuario.getRoles().toString());
+    	
+    	return  ResponseEntity.ok(userResponse);
+    }
+*/
 }

@@ -5,6 +5,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -22,12 +23,16 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.gestion.empleados.dto.servicio.EmpleadoServicio;
+import com.gestion.empleados.modelo.Rol;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Configuración de seguridad para la aplicación.
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     @Autowired
@@ -45,35 +50,30 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(request ->
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(request ->           
                 request
-                    .mvcMatchers("/**").permitAll() // Permitir todas las solicitudes
-                    .anyRequest().permitAll())
-            .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
-            .cors(Customizer.withDefaults())
-            .authenticationProvider(authenticationProvider())
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+                .requestMatchers("/api/v1/auth/**").permitAll()
+                //GESTION EMPLEADOS
+                .requestMatchers(HttpMethod.GET, "/api/v1/empleados/**").hasAnyAuthority(Rol.ADMIN.toString())
+                .requestMatchers(HttpMethod.POST, "/api/v1/empleados/**").hasAnyAuthority(Rol.ADMIN.toString())
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/empleados/**").hasAnyAuthority(Rol.ADMIN.toString())
+                
+                //GESTION CLIENTES
+                .requestMatchers(HttpMethod.GET, "/api/v1/clientes/**").hasAnyAuthority(Rol.USER.toString(), Rol.ADMIN.toString())
+                .requestMatchers(HttpMethod.POST, "/api/v1/clientes/**").hasAnyAuthority(Rol.USER.toString(), Rol.ADMIN.toString())
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/clientes/**").hasAnyAuthority(Rol.USER.toString(), Rol.ADMIN.toString())
+                .anyRequest().authenticated())
+                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
-    /**
-     * Configura el encriptador de contraseñas.
-     *
-     * @return El encriptador de contraseñas.
-     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * Configura el proveedor de autenticación DAO.
-     *
-     * @return El proveedor de autenticación DAO configurado.
-     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -82,23 +82,11 @@ public class SecurityConfig {
         return authProvider;
     }
 
-    /**
-     * Configura el administrador de autenticación.
-     *
-     * @param config Configuración de autenticación.
-     * @return El administrador de autenticación configurado.
-     * @throws Exception Si ocurre un error al obtener el administrador de autenticación.
-     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
-    /**
-     * Configura el origen de configuración CORS.
-     *
-     * @return El origen de configuración CORS.
-     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

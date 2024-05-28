@@ -11,8 +11,6 @@ import com.gestion.empleados.modelo.Empleado;
 public interface EmpleadoRepositorio extends JpaRepository<Empleado, Long>{
 
 	Optional<Empleado> findByUsuario(String usuario);
-
     Boolean existsByEmail(String email);
-
     
 }

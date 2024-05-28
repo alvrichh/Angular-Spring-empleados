@@ -6,30 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ClienteServicio {
+public interface ClienteServicio {
 
-    @Autowired
-    private ClienteRepositorio clienteRepositorio;
-
-    public Cliente registrarCliente(Cliente cliente) {
-        return clienteRepositorio.save(cliente);
-    }
-
-    public List<Cliente> obtenerTodosLosClientes() {
-        return clienteRepositorio.findAll();
-    }
-
-    public Cliente obtenerClientePorId(Long id) {
-        return clienteRepositorio.findById(id).orElse(null);
-    }
-
-    public void eliminarCliente(Long id) {
-        clienteRepositorio.deleteById(id);
-    }
-
-    public List<Cliente> obtenerClientesPorEmpleado(Long empleadoId) {
-        return clienteRepositorio.findByEmpleadoId(empleadoId);
-    }
+	Cliente agregarCliente(Cliente cliente);
+	Optional<Cliente> obtenerClientePorCups(String cups);
+	void eliminarCliente(String cups);
 }

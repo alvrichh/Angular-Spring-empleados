@@ -4,17 +4,19 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.*;
+
 @Entity
 @Table(name = "empleados")
 public class Empleado implements UserDetails {
-    private static  long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +47,16 @@ public class Empleado implements UserDetails {
     @JsonManagedReference // Añadir esta anotación
     private Set<Cliente> clientes = new HashSet<>();
 
+    // Métodos de conveniencia para gestionar la relación bidireccional
+    public void addCliente(Cliente cliente) {
+        clientes.add(cliente);
+        cliente.setEmpleado(this);
+    }
+
+    public void removeCliente(Cliente cliente) {
+        clientes.remove(cliente);
+        cliente.setEmpleado(null);
+    }
     // Getters y setters
 
     public Empleado(Long id, String nombre, String apellido, String email, String usuario, String password,

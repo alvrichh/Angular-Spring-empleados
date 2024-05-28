@@ -2,7 +2,6 @@ package com.gestion.empleados.modelo;
 
 import java.util.Collection;
 
-import javax.persistence.Column;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

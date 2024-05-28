@@ -1,10 +1,9 @@
 package com.gestion.empleados.modelo;
 
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import ch.qos.logback.core.net.server.Client;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 

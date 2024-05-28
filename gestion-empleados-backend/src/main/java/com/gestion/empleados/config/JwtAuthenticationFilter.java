@@ -3,11 +3,6 @@ package com.gestion.empleados.config;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -22,11 +17,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.gestion.empleados.dto.servicio.EmpleadoServicio;
 import com.gestion.empleados.dto.servicio.JwtService;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-/**
- * Filtro de autenticación JWT que verifica y establece la autenticación del usuario.
- */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -37,15 +33,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private EmpleadoServicio userService;
 
-    /**
-     * Filtra las solicitudes para verificar y establecer la autenticación del usuario mediante JWT.
-     *
-     * @param request     La solicitud HTTP.
-     * @param response    La respuesta HTTP.
-     * @param filterChain Cadena de filtros.
-     * @throws ServletException Si ocurre un error durante el filtrado.
-     * @throws IOException      Si ocurre un error de entrada/salida.
-     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
