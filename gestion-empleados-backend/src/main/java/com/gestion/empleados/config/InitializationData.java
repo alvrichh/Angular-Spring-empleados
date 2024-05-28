@@ -74,6 +74,7 @@ public class InitializationData implements CommandLineRunner {
             cliente1.setDni("12345678A");
             cliente1.setEmail("juan@example.com");
             cliente1.setComercializadora("Endesa");
+            cliente1.setNumeroCUPS("ES0031");
             cliente1.setTelefono("123456789");
             cliente1.setEmpleado(usuario1); // Asociar cliente1 con usuario1
             clienteRepositorio.save(cliente1);
@@ -85,6 +86,7 @@ public class InitializationData implements CommandLineRunner {
             cliente2.setDni("87654321B");
             cliente2.setEmail("maria@example.com");
             cliente2.setComercializadora("Iberdrola");
+            cliente1.setNumeroCUPS("ES008310");
             cliente2.setTelefono("987654321");
             cliente2.setEmpleado(usuario1); // Asociar cliente2 con usuario1
             clienteRepositorio.save(cliente2);

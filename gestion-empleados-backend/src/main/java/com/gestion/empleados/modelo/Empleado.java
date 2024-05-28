@@ -17,7 +17,7 @@ import jakarta.transaction.Transactional;
 @Entity
 @Table(name = "empleados")
 public class Empleado implements UserDetails {
-
+ 
 	private static final long serialVersionUID = 1L;
 
     @Id

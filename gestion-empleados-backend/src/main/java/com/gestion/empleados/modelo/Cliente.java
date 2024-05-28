@@ -15,15 +15,14 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
     private String apellidos;
     private String dni;
     private String email;
     private String comercializadora;
+    @Column(name = "numeroCUPS", length = 60, nullable = false, unique = true)
     private String numeroCUPS;
     private String telefono;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empleado_id")
     @JsonBackReference // Añadir esta anotación

@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ClienteRepositorio extends JpaRepository<Cliente, Long> {
     List<Cliente> findByEmpleadoId(Long empleadoId);
+
     Optional<Cliente> findByNumeroCUPS(String numeroCUPS);
 
 }
