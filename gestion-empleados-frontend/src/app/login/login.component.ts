@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
-4
+
 @Component({
   selector: 'app-signin',
   standalone: true,
@@ -20,8 +20,10 @@ export class LoginComponent {
   token: string;
   role: string;
 
+  
   login() {
     console.log("Intentando iniciar sesión con:", this.username, this.password);
+    console.log(this.token);
     this.authService.login(this.username, this.password).subscribe({
       next: (response: any) => {
         this.token = response.token; // Almacena el token en la propiedad token
@@ -38,14 +40,14 @@ export class LoginComponent {
     });
 
   }
+
   verDashboard(){
-    // Redirige según el rol del usuario
     this.router.navigate(['/empleados']);
 
     if (this.role === 'ADMIN') {
       this.router.navigate(['/empleados']);
     } else if (this.role === 'USER') {
-      this.router.navigate(['/dashboard-empleado']);
+      this.router.navigate(['/clientes']);
     }
             
 

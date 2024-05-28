@@ -9,10 +9,12 @@ import javax.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "empleados")
 public class Empleado implements UserDetails {
-    private static final long serialVersionUID = 1L;
+    private static  long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +42,9 @@ public class Empleado implements UserDetails {
     private Set<Rol> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // Añadir esta anotación
     private Set<Cliente> clientes = new HashSet<>();
 
-    
-    
     // Getters y setters
 
     public Empleado(Long id, String nombre, String apellido, String email, String usuario, String password,

@@ -13,7 +13,7 @@ export class AuthService {
 
   login(username: string, password: string) {
     const body = { username, password }; // Datos del formulario
-    this.getEmpleadoId();
+    console.log("aqui estamos");
     return this.http.post(`${this.apiUrl}/login`, body);
   }
 

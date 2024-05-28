@@ -2,6 +2,8 @@ package com.gestion.empleados.modelo;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import ch.qos.logback.core.net.server.Client;
 
 import java.util.Objects;
@@ -9,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "clientes")
 public class Cliente {
+    private static  long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +27,7 @@ public class Cliente {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empleado_id")
+    @JsonBackReference // Añadir esta anotación
     private Empleado empleado;
 
     

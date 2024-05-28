@@ -16,5 +16,5 @@ export const routes: Routes = [
     { path: 'actualizar-empleado/:id', component: ActualizarEmpleadoComponent },
     { path: 'detalles-empleado/:id', component: DetallesEmpleadoComponent },
     { path: 'registrar-cliente', component: RegistrarClienteComponent },
-    { path: 'lista-clientes', component: ListaClientesComponent }, // Agrega la ruta para ListaClientesComponent
+    { path: 'clientes', component: ListaClientesComponent }, // Agrega la ruta para ListaClientesComponent
 ];
