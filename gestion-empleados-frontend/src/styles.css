@@ -2,6 +2,15 @@
     width: 100px;
     border-radius: 100%;
 }
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #343a40; /* Color de fondo oscuro */
+  color: white;
+  text-align: center;
+  padding: 20px 0; /* Añade espacio alrededor del contenido */
+}
 /* Botón de LinkeIn */
 .libutton {
     display: inline-block;
@@ -21,7 +30,7 @@
     color: rgb(0, 128, 255); /* Color del texto al pasar el mouse */
   }
   /* Botón de GitHub */
-  .github-button {
+.github-button {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
@@ -39,3 +48,9 @@
     background-color: #ffffff; /* Color de fondo al pasar el mouse */
     color: #24292e; /* Color del texto al pasar el mouse */
   }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
