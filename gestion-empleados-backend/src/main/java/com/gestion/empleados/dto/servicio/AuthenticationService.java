@@ -1,5 +1,7 @@
 package com.gestion.empleados.dto.servicio;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.gestion.empleados.dto.JwtAuthenticationResponse;
@@ -27,4 +29,5 @@ public interface AuthenticationService {
      * @return Respuesta de autenticación que incluye el token JWT.
      */
     JwtAuthenticationResponse signin(SigninRequest request);
+
 }

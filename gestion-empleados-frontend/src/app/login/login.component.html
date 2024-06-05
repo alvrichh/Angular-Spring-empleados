@@ -14,7 +14,7 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Contraseña</label>
-                            <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" [(ngModel)]="password" name="password">
+                            <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" [(ngModel)]="password" name="password" required="true">
                         </div>
                         <button type="submit" class="btn btn-primary btn-block" (click)="login()">Iniciar Sesión</button>
                     </form>

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import com.gestion.empleados.dto.servicio.ClienteServicio;
@@ -88,5 +89,17 @@ public class EmpleadoControlador {
                 .orElseThrow(() -> new ResourceNotFoundException("No existe el empleado con el usuario: " + usuario));
 
         return empleado.getClientes().stream().collect(Collectors.toList());
+    }
+    @GetMapping("/perfil")
+    public ResponseEntity<Empleado> obtenerPerfilEmpleado(Authentication authentication) {
+        // Obtener el nombre de usuario del empleado autenticado
+        String usuario = authentication.getName();
+
+        // Buscar al empleado por su nombre de usuario
+        Empleado empleado = empleadoService.obtenerEmpleadoPorUsuario(usuario)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró el empleado con el usuario: " + usuario));
+
+        // Devolver los datos del empleado encontrado
+        return ResponseEntity.ok(empleado);
     }
 }

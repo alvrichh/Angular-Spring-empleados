@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.gestion.empleados.dto.EmpleadoDTO;
+import com.gestion.empleados.modelo.Cliente;
 import com.gestion.empleados.modelo.Empleado;
 
 public interface EmpleadoServicio {
@@ -15,4 +16,5 @@ public interface EmpleadoServicio {
     Empleado actualizarEmpleado(String usuario, Empleado empleadoDetalles);
     void eliminarEmpleado(String usuario);
 	UserDetailsService userDetailsService();
+	List<Cliente> listarClientesDeEmpleado(String usuario);
 }

@@ -1,5 +1,6 @@
 package com.gestion.empleados.dto.servicio;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.gestion.empleados.dto.EmpleadoDTO;
 import com.gestion.empleados.excepciones.ResourceNotFoundException;
+import com.gestion.empleados.modelo.Cliente;
 import com.gestion.empleados.modelo.Empleado;
+import com.gestion.empleados.repositorio.ClienteRepositorio;
 import com.gestion.empleados.repositorio.EmpleadoRepositorio;
 
 @Service
@@ -21,6 +24,9 @@ public class EmpleadoServicioImpl implements EmpleadoServicio {
 
     @Autowired
     private EmpleadoRepositorio empleadoRepositorio;
+
+    @Autowired
+    private ClienteRepositorio clienteRepositorio;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -72,4 +78,19 @@ public class EmpleadoServicioImpl implements EmpleadoServicio {
             }
         };
     }
+
+	@Override
+	public List<Cliente> listarClientesDeEmpleado(String usuario) {
+	        // Busca el empleado por su nombre en el repositorio de empleados
+	        Optional<Empleado> empleado = empleadoRepositorio.findByUsuario(usuario);
+	        
+	        if (empleado != null) {
+	            // Si se encuentra el empleado, obtén la lista de clientes asociados a ese empleado
+	            return clienteRepositorio.findByEmpleado(empleado);
+	        } else {
+	            // Si no se encuentra el empleado, devuelve una lista vacía
+	            return Collections.emptyList();
+	        
+	    }
+	}
 }

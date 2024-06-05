@@ -2,10 +2,15 @@ package com.gestion.empleados.config;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -25,6 +31,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.gestion.empleados.dto.servicio.EmpleadoServicio;
 import com.gestion.empleados.modelo.Rol;
 
+import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -98,5 +105,24 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+    //AÑADIDA CONFIGURACIÓN JPA
+    @Configuration
+    public class JpaConfig {
+
+        @Bean
+        public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+                DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+            LocalContainerEntityManagerFactoryBean emfb = new LocalContainerEntityManagerFactoryBean();
+            emfb.setDataSource(dataSource);
+            emfb.setJpaVendorAdapter(jpaVendorAdapter);
+            emfb.setPackagesToScan("com.gestion.empleados");
+            return emfb;
+        }
+
+        @Bean
+        public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+            return new JpaTransactionManager(emf);
+        }
     }
 }

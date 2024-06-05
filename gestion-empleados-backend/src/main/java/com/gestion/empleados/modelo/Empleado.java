@@ -40,9 +40,9 @@ public class Empleado implements UserDetails {
     private String password;
 
     @ElementCollection(targetClass = Rol.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "empleado_rol", joinColumns = @JoinColumn(name = "empleado_id"))
+    @CollectionTable(name = "asesor", joinColumns = @JoinColumn(name = "empleado_id"))
     @Enumerated(EnumType.STRING)
-    @Column(name = "roles")
+    @Column(name = "roles", length = 20)
     private Set<Rol> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -61,22 +61,21 @@ public class Empleado implements UserDetails {
     }
     // Getters y setters
 
-    public Empleado(Long id, String nombre, String apellido, String email, String usuario, String password,
+    public Empleado(String nombre, String apellido, String email, String usuario, String password,
 			Set<Rol> roles, Set<Cliente> clientes) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
-		this.usuario = usuario;
-		this.password = password;
-		this.roles = roles;
-		this.clientes = clientes;
-	}
+        setNombre(nombre);
+        setApellido(apellido);
+        setEmail(email);
+        setUsuario(usuario);
+        setPassword(password);
+        setRoles(roles);
+        setClientes(clientes);
+        }
 
     public Empleado() {
-    	
+    	System.out.println("SE ESPERABAN DATOS DEL EMPLEADO");
     }
+
     @Transactional
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

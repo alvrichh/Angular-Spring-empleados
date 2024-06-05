@@ -46,6 +46,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        else {
+            System.out.println("Token invalido , no empieza con bearer string");
+        }
 
         jwt = authHeader.substring(7);
         username = jwtService.extractUserName(jwt);
@@ -62,6 +65,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 context.setAuthentication(authToken);
                 SecurityContextHolder.setContext(context);
+            }
+            else {
+                System.out.println("El token no es valido");
             }
         }
 

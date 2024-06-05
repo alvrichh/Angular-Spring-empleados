@@ -6,14 +6,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/v1/auth'; // URL de la API externa
+  private apiUrl = 'http://localhost:8080/api/v1/auth';
   private jwtHelper = new JwtHelperService();
 
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string) {
-    const body = { username, password }; // Datos del formulario
-    console.log("aqui estamos");
+    const body = { username, password };
     return this.http.post(`${this.apiUrl}/login`, body);
   }
 
@@ -25,24 +24,32 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  getUserRoles() {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      const roles = decodedToken.roles || [];
+      console.log('Roles del usuario:', roles);
+      return roles;
+    }
+    return [];
+  }
+
   getEmpleadoId(): number {
     const token = this.getToken();
     if (token) {
       const decodedToken = this.jwtHelper.decodeToken(token);
       const empleadoId = decodedToken.empleadoId;
       console.log('ID del empleado:', empleadoId);
-      return decodedToken.empleadoId; // Asegúrate de que el token contenga el ID del empleado con esta clave
+      return empleadoId;
     }
     console.log("error");
-    return null; // O lanza un error si el ID no se encuentra
+    return null;
   }
 
   isAdmin(): boolean {
-    const token = this.getToken();
-    if (token) {
-      const decodedToken = this.jwtHelper.decodeToken(token);
-      return decodedToken.role === 'ADMIN'; // Asegúrate de que el token contenga la clave de rol
-    }
-    return false;
+    const roles = this.getUserRoles();
+    console.log('Usuario es administrador:', roles.includes('ADMIN'));
+    return roles.includes('ADMIN');
   }
 }

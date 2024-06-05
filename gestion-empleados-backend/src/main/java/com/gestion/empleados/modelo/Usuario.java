@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class Usuario implements UserDetails {
 
-	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -51,4 +50,101 @@ public class Usuario implements UserDetails {
 		return false;
 	}
 
+	//CLASE DE EJEMPLO SIMPLE DE USER
+	/*
+	  @Id
+	  @GeneratedValue(strategy = GenerationType.IDENTITY)
+	  private Long id;
+	  @NotBlank
+	  @Size(max = 20)
+	  private String username;
+	  private String password;
+
+	  @ManyToMany(fetch = FetchType.LAZY)
+	  @JoinTable(name = "zz_user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	  private Set<Role> roles = new HashSet<>();
+
+	  public User(String username, String password) {
+	    this.username = username;
+	    this.password = password;
+	  }
+
+	  public Long getId() {
+	    return id;
+	  }
+
+	  public void setId(Long id) {
+	    this.id = id;
+	  }
+
+	  public String getUsername() {
+	        return username;
+	    }
+
+	    public void setUsername(String username) {
+	        this.username = username;
+	    }
+
+	  public String getPassword() {
+	        return password;
+	    }
+
+	    public void setPassword(String password) {
+	        this.password = password;
+	    }
+
+	  public Set<Role> getRoles() {
+	        return roles;
+	    }
+	  
+	    public void setRoles(Set<Role> roles) {
+	        this.roles = roles;
+	    }
+
+	  public User() {
+	  }
+	  
+	}
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+*/
 }

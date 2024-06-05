@@ -14,4 +14,5 @@ public interface ClienteServicio {
 	Cliente agregarCliente(Cliente cliente);
 	Optional<Cliente> obtenerClientePorCups(String cups);
 	void eliminarCliente(String cups);
+	void eliminarCliente(Long id);
 }

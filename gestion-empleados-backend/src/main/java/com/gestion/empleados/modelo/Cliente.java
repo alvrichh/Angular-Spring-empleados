@@ -15,35 +15,47 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "nombre", length = 60, nullable = false)
     private String nombre;
+    
+    @Column(name = "apellido", length = 60, nullable = false)
     private String apellidos;
+    
+    @Column(name = "dni", length = 60, nullable = false)
     private String dni;
+    
+    @Column(name = "email", length = 60, nullable = false, unique = true)
     private String email;
+    
+    @Column(name = "comercializadora", length = 60, nullable = false)
     private String comercializadora;
+    
     @Column(name = "numeroCUPS", length = 60, nullable = false, unique = true)
     private String numeroCUPS;
+    
+    @Column(name = "telefono", length = 60, nullable = false)
     private String telefono;
+    
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "empleado_id")
     @JsonBackReference // Añadir esta anotación
+    @JoinColumn(name = "asesor")
     private Empleado empleado;
 
     
 
     // Getters y setters
 
-    public Cliente(Long id, String nombre, String apellidos, String dni, String email, String comercializadora,
+    public Cliente(String nombre, String apellidos, String dni, String email, String comercializadora,
 			String numeroCUPS, String telefono, Empleado empleado) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.dni = dni;
-		this.email = email;
-		this.comercializadora = comercializadora;
-		this.numeroCUPS = numeroCUPS;
-		this.telefono = telefono;
-		this.empleado = empleado;
+		setNombre(nombre);
+        setApellidos(apellidos);
+        setDni(dni);
+        setEmail(email);
+        setComercializadora(comercializadora);
+        setNumeroCUPS(numeroCUPS);
+        setNumeroCUPS(numeroCUPS);
+        setEmpleado(empleado);
 	}
     public Cliente() {}
 

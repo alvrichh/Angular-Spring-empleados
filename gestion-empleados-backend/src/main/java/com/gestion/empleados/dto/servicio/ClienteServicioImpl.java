@@ -31,4 +31,11 @@ public class ClienteServicioImpl implements ClienteServicio {
                 .orElseThrow(() -> new ResourceNotFoundException("No existe el cliente con el CUPS: " + numeroCUPS));
         clienteRepositorio.delete(cliente);
     }
+
+	@Override
+	public void eliminarCliente(Long id) {
+	     Cliente cliente = clienteRepositorio.findById(id)
+	                .orElseThrow(() -> new ResourceNotFoundException("No existe el cliente con el CUPS: " + id));
+	        clienteRepositorio.delete(cliente);		
+	}
 }

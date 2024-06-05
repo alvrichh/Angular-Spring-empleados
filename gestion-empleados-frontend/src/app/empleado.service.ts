@@ -38,6 +38,8 @@ export class EmpleadoService {
     return this.httpClient.delete(`${this.baseURL}/${id}`);
 
   }
-
+  obtenerPerfilEmpleado() {
+    return this.httpClient.get<any>(`${this.baseURL}/perfil`);
+  }
 
 }

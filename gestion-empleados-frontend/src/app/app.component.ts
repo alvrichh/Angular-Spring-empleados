@@ -4,14 +4,16 @@ import { ListaEmpleadosComponent } from './lista-empleados/lista-empleados.compo
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ListaClientesComponent } from './lista-clientes/lista-clientes.component';
+import { PerfilEmpleadoComponent } from './perfil-empleado/perfil-empleado.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ListaEmpleadosComponent, CommonModule, RouterOutlet, RouterLink, FormsModule, ListaClientesComponent],
+  imports: [ListaEmpleadosComponent, CommonModule, RouterOutlet, RouterLink, FormsModule, ListaClientesComponent, PerfilEmpleadoComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'Sistema de gestión de empleados';
+  token: any;
 }
